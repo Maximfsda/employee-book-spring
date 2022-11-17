@@ -1,4 +1,4 @@
 package com.skypro.employeebookspring.exeption;
 
-public class EmployeeNotFoundException extends RuntimeException{
+public class EmployeeNotFoundException extends RuntimeException {
 }
