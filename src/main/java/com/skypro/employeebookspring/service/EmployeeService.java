@@ -38,7 +38,7 @@ public class EmployeeService {
                 .sum();
     }
 
-    public Employee getEmployeeWithMinSalary(){
+    public Employee getEmployeeWithMinSalary() {
         return employees.values().stream()
                 .min(Comparator.comparing(Employee::getSalary))
                 .orElseThrow(EmployeeNotFoundException::new);
@@ -53,7 +53,7 @@ public class EmployeeService {
 
     public List<Employee> getEmployeeWithSalaryMoreThatAverage() {
         Double averageSalary = getAverageSalary();
-        if(averageSalary == null){
+        if (averageSalary == null) {
             return Collections.emptyList();
         }
 
@@ -63,7 +63,7 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
-    private Double getAverageSalary(){
+    private Double getAverageSalary() {
         return employees.values().stream().
                 collect(Collectors.averagingInt(Employee::getSalary));
     }
