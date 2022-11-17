@@ -47,11 +47,11 @@ public class EmployeeController {
         return this.employeeService.getSalarySum();
     }
     @GetMapping("/employees/salary/min")
-    public Employee getSalaryMin() throws EmployeeNotFoundException {
+    public Employee getSalaryMin(){
         return this.employeeService.getEmployeeWithMinSalary();
     }
     @GetMapping("/employees/salary/max")
-    public Employee getSalaryMax() {
+    public Employee getSalaryMax(){
         return this.employeeService.getEmployeeWithMaxSalary();
     }
     @GetMapping("/employees/highSalary")

@@ -6,6 +6,7 @@ import com.skypro.employeebookspring.record.EmployeeRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -37,7 +38,7 @@ public class EmployeeService {
                 .sum();
     }
 
-    public Employee getEmployeeWithMinSalary() throws EmployeeNotFoundException {
+    public Employee getEmployeeWithMinSalary(){
         return employees.values().stream()
                 .min(Comparator.comparing(Employee::getSalary))
                 .orElseThrow(EmployeeNotFoundException::new);
@@ -45,11 +46,25 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeWithMaxSalary() {
-        return employees.values().stream().min(Comparator.comparing(Employee::getSalary))
-                .orElseThrow(()-> new EmployeeNotFoundException());
+        return employees.values().stream()
+                .max(Comparator.comparing(Employee::getSalary))
+                .orElseThrow(EmployeeNotFoundException::new);
     }
 
     public List<Employee> getEmployeeWithSalaryMoreThatAverage() {
-        return null;
+        Double averageSalary = getAverageSalary();
+        if(averageSalary == null){
+            return Collections.emptyList();
+        }
+
+        return employees.values()
+                .stream()
+                .filter(e -> e.getSalary() > averageSalary)
+                .collect(Collectors.toList());
+    }
+
+    private Double getAverageSalary(){
+        return employees.values().stream().
+                collect(Collectors.averagingInt(Employee::getSalary));
     }
 }
